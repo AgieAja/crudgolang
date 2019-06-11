@@ -20,27 +20,43 @@ func NewPhoneBookUseCase(phoneInterface phoneI.PhoneBookI) phoneUCI.PhoneBookUCI
 }
 
 //GetAll - get data list from table phone_books
-func (phoneBookUC *phoneBookUseCase) GetAll() ([]phoneModel.PhoneBooks, error) {
-	var list []phoneModel.PhoneBooks
+func (phoneBookUC *phoneBookUseCase) GetAll() ([]phoneModel.Datas, error) {
+	var (
+		list    []phoneModel.PhoneBooks
+		myDatas []phoneModel.Datas
+	)
 
 	list, err := phoneBookUC.PhoneBookI.FindAll()
 	if err != nil {
-		return list, err
+		return myDatas, err
 	}
 
-	return list, nil
+	for _, val := range list {
+		var detail phoneModel.Datas
+		detail.Name = val.Name
+		detail.PhoneNumber = val.PhoneNumber
+		myDatas = append(myDatas, detail)
+	}
+
+	return myDatas, nil
 }
 
 //GetByID - get data from table phone_books by id
-func (phoneBookUC *phoneBookUseCase) GetByID(id int64) (phoneModel.PhoneBooks, error) {
-	var data phoneModel.PhoneBooks
+func (phoneBookUC *phoneBookUseCase) GetByID(id int64) (phoneModel.Datas, error) {
+	var (
+		data   phoneModel.PhoneBooks
+		myData phoneModel.Datas
+	)
 
 	data, err := phoneBookUC.PhoneBookI.FindByID(id)
 	if err != nil {
-		return data, err
+		return myData, err
 	}
 
-	return data, nil
+	myData.Name = data.Name
+	myData.PhoneNumber = data.PhoneNumber
+
+	return myData, nil
 }
 
 //InsertData - insert data into table phone_books
