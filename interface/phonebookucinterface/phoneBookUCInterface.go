@@ -9,6 +9,6 @@ type PhoneBookUCI interface {
 	InsertData(string, string) error
 	EditData(int64, string, string) error
 	DeleteData(int64) error
-	GetAll() ([]phoneModel.PhoneBooks, error)
-	GetByID(int64) (phoneModel.PhoneBooks, error)
+	GetAll() ([]phoneModel.Datas, error)
+	GetByID(int64) (phoneModel.Datas, error)
 }
