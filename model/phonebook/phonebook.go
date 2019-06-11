@@ -13,6 +13,7 @@ type PhoneBooks struct {
 
 //Datas - struct for json
 type Datas struct {
+	ID          uint   `json:"id"`
 	Name        string `json:"name"`
 	PhoneNumber string `json:"phone"`
 }
