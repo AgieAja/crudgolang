@@ -33,6 +33,7 @@ func (phoneBookUC *phoneBookUseCase) GetAll() ([]phoneModel.Datas, error) {
 
 	for _, val := range list {
 		var detail phoneModel.Datas
+		detail.ID = val.ID
 		detail.Name = val.Name
 		detail.PhoneNumber = val.PhoneNumber
 		myDatas = append(myDatas, detail)
@@ -53,6 +54,7 @@ func (phoneBookUC *phoneBookUseCase) GetByID(id int64) (phoneModel.Datas, error)
 		return myData, err
 	}
 
+	myData.ID = data.ID
 	myData.Name = data.Name
 	myData.PhoneNumber = data.PhoneNumber
 
