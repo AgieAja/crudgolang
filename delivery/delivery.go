@@ -145,6 +145,90 @@ func (handler *HTTPPhoneBook) GetByID(c *gin.Context) {
 	)
 }
 
+//EditData - handler for update data phone_books
+func (handler *HTTPPhoneBook) EditData(c *gin.Context) {
+	var reqJSON reqUpdate
+	c.BindJSON(&reqJSON)
+
+	if reqJSON.Name == "" || reqJSON.ID == 0 || reqJSON.Phone == "" {
+		c.JSON(
+			http.StatusBadRequest,
+			gin.H{
+				"status":  http.StatusBadRequest,
+				"message": "Bad Request",
+			},
+		)
+		return
+	}
+
+	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
+	err := handler.phoneBookUCI.EditData(reqJSON.ID, reqJSON.Name, reqJSON.Phone)
+	if err != nil {
+		log.Error().Msg(err.Error())
+		c.JSON(
+			http.StatusBadGateway,
+			gin.H{
+				"status":  http.StatusBadGateway,
+				"message": "System Error",
+			},
+		)
+		return
+	}
+
+	c.JSON(
+		http.StatusOK,
+		gin.H{
+			"status":  http.StatusOK,
+			"message": "success",
+		},
+	)
+
+}
+
+//DeleteData - handler for delete data phone_books
+func (handler *HTTPPhoneBook) DeleteData(c *gin.Context) {
+	type req struct {
+		ID int64 `json:"id"`
+	}
+
+	var Req req
+
+	c.BindJSON(&Req)
+
+	if Req.ID == 0 {
+		c.JSON(
+			http.StatusBadRequest,
+			gin.H{
+				"status":  http.StatusBadRequest,
+				"message": "Bad Request",
+			},
+		)
+		return
+	}
+
+	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
+	err := handler.phoneBookUCI.DeleteData(Req.ID)
+	if err != nil {
+		log.Error().Msg(err.Error())
+		c.JSON(
+			http.StatusBadGateway,
+			gin.H{
+				"status":  http.StatusBadGateway,
+				"message": "System Error",
+			},
+		)
+		return
+	}
+
+	c.JSON(
+		http.StatusOK,
+		gin.H{
+			"status":  http.StatusOK,
+			"message": "success",
+		},
+	)
+}
+
 //NewPhoneBookHTTPHandler - initial http handler phone book
 func NewPhoneBookHTTPHandler(r *gin.Engine, phoneUCI phoneUCI.PhoneBookUCI) {
 	handler := &HTTPPhoneBook{phoneUCI}
@@ -154,7 +238,7 @@ func NewPhoneBookHTTPHandler(r *gin.Engine, phoneUCI phoneUCI.PhoneBookUCI) {
 		api.GET("/list", handler.GetAll)
 		api.GET("/data/:id", handler.GetByID)
 		api.POST("/add", handler.AddData)
-		// api.POST("/edit", handler.EditData)
-		// api.POST("/delete", handler.DeleteData)
+		api.POST("/edit", handler.EditData)
+		api.POST("/delete", handler.DeleteData)
 	}
 }
