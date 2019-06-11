@@ -62,7 +62,7 @@ func (config *dbConn) DeleteData(id int64) error {
 func (config *dbConn) FindAll() ([]phoneModel.PhoneBooks, error) {
 	var list []phoneModel.PhoneBooks
 
-	err := config.DbConn.Find(&list).Error
+	err := config.DbConn.Select("name,phone_number").Find(&list).Error
 	if err != nil {
 		return list, errors.New("FindAll err = " + err.Error())
 	}
@@ -73,7 +73,7 @@ func (config *dbConn) FindAll() ([]phoneModel.PhoneBooks, error) {
 //FindByID - get data phone_books by id
 func (config *dbConn) FindByID(id int64) (phoneModel.PhoneBooks, error) {
 	var data phoneModel.PhoneBooks
-	err := config.DbConn.Where("id = ?", id).First(&data).Error
+	err := config.DbConn.Select("name,phone_number").Where("id = ?", id).First(&data).Error
 	if err != nil {
 		return data, errors.New("FindByID err = " + err.Error())
 	}
