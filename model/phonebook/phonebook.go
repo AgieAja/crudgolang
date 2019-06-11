@@ -7,6 +7,6 @@ import (
 //PhoneBooks - maping table phone_books
 type PhoneBooks struct {
 	gorm.Model
-	Name        string
-	PhoneNumber string
+	Name        string `json:"name"`
+	PhoneNumber string `json:"phone_number"`
 }
