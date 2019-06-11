@@ -4,6 +4,9 @@ import (
 	"fmt"
 
 	"github.com/jinzhu/gorm"
+
+	//driver mysql database
+	_ "github.com/go-sql-driver/mysql"
 )
 
 var (
