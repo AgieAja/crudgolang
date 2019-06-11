@@ -62,27 +62,10 @@ func (config *dbConn) DeleteData(id int64) error {
 func (config *dbConn) FindAll() ([]phoneModel.PhoneBooks, error) {
 	var list []phoneModel.PhoneBooks
 
-	// query := `SELECT block_name_id,names FROM block_names WHERE deleted_at IS NULL`
-
-	// rows, errQuery := config.DbConn.Query(query)
-
-	// if errQuery != nil {
-	// 	return list, errors.New("FindAll errQuery = " + errQuery.Error())
-	// }
-
-	// defer rows.Close()
-
-	// for rows.Next() {
-	// 	var data blockNameModel.ListBlockNames
-
-	// 	errScan := rows.Scan(&data.BlockNameID, &data.Name)
-
-	// 	if errScan != nil {
-	// 		return list, errors.New("FindAll errScan = " + errScan.Error())
-	// 	}
-
-	// 	list = append(list, data)
-	// }
+	err := config.DbConn.Find(&list).Error
+	if err != nil {
+		return list, errors.New("FindAll err = " + err.Error())
+	}
 
 	return list, nil
 }
@@ -90,17 +73,10 @@ func (config *dbConn) FindAll() ([]phoneModel.PhoneBooks, error) {
 //FindByID - get data phone_books by id
 func (config *dbConn) FindByID(id int64) (phoneModel.PhoneBooks, error) {
 	var data phoneModel.PhoneBooks
-	// query := `SELECT block_name_id,names FROM block_names WHERE block_name_id = ?`
-	// stat, errPrepare := config.DbConn.Prepare(query)
-	// if errPrepare != nil {
-	// 	return data, errors.New("FindByID errPrepare = " + errPrepare.Error())
-	// }
-
-	// defer stat.Close()
-	// errQueryRow := stat.QueryRow(id).Scan(&data.BlockNameID, &data.Name)
-	// if errQueryRow != nil {
-	// 	return data, errors.New("FindByID errQueryRow = " + errQueryRow.Error())
-	// }
+	err := config.DbConn.Where("id = ?", id).First(&data).Error
+	if err != nil {
+		return data, errors.New("FindByID err = " + err.Error())
+	}
 
 	return data, nil
 }
