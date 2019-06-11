@@ -2,6 +2,11 @@ package main
 
 import (
 	configDb "crudgolang/config"
+	deliveryHttp "crudgolang/delivery"
+	phoneBookRepo "crudgolang/repository/phonebookrepo"
+	phoneBookUC "crudgolang/usecase/phonebookuc"
+	"net/http"
+
 	"os"
 	"regexp"
 
@@ -18,7 +23,7 @@ func init() {
 var rxURL = regexp.MustCompile(`^/regexp\d*`)
 
 func main() {
-	port := os.Getenv("PORT")
+	port := "8001"
 
 	zerolog.SetGlobalLevel(zerolog.InfoLevel)
 	if gin.IsDebugging() {
@@ -65,4 +70,16 @@ func main() {
 
 	defer db.Close()
 
+	phoneRepo := phoneBookRepo.NewPhoneBookRepo(db)
+	phoneUC := phoneBookUC.NewPhoneBookUseCase(phoneRepo)
+
+	deliveryHttp.NewPhoneBookHTTPHandler(r, phoneUC)
+	log.Info().Msg("Service Running at port : " + port)
+
+	//api for login user
+	// r.POST("api/login", authMiddleware.LoginHandler)
+
+	if errHTTP := http.ListenAndServe(":"+port, r); errHTTP != nil {
+		log.Error().Msg(errHTTP.Error())
+	}
 }
