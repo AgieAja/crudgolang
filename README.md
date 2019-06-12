@@ -24,6 +24,7 @@ Instalation
       <li>dbName := "your database name"</li>
     </ul>
   </li>
+  <li>Open your terminal on the root project and run command go run main.go</li>
 </ol>
 
 
