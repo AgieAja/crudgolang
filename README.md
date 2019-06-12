@@ -1,4 +1,4 @@
-Sample API CRUD using Golang And Gin
+<h1>Sample API CRUD using Golang And Gin</h1>
 
 Instalation
 <ol>
@@ -26,5 +26,8 @@ Instalation
   </li>
   <li>Open your terminal on the root project and run command go run main.go</li>
 </ol>
+
+
+<h3>Module</h3>
 
 
