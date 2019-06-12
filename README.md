@@ -1,6 +1,7 @@
 <h1>Sample API CRUD using Golang And Gin</h1>
 
-Instalation
+<h3>Instalation</h3>
+<hr/>
 <ol>
   <li>Create some database and Import table in the folder database on MYSQL</li>
   <li>
