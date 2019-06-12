@@ -34,15 +34,45 @@
 <table style="width:100%;border:1px;">
   <tr>
     <th>Module</th>
+    <th>Method</th>
     <th>URL</th>
     <th>Description</th>
     <th>Request Body</th>
   </tr>
   <tr>
     <td>Add</td>
-    <td>{baseURL/phonebook/add}</td>
-    <td>Add some data in table phone book</td>
+    <td>POST</td>
+    <td>{baseURL}/phonebook/add</td>
+    <td>Add some data in table phone_books</td>
     <td>{"name":"Tiar","phone":"12346"}</td>
+  </tr>
+  <tr>
+    <td>Edit</td>
+    <td>POST</td>
+    <td>{baseURL}/phonebook/edit</td>
+    <td>edit some data in table phone_books</td>
+    <td>{"id":1,"name":"Tiar","phone":"12346"}</td>
+  </tr>
+  <tr>
+    <td>List</td>
+    <td>GET</td>
+    <td>{baseURL}/phonebook/list</td>
+    <td>get all data in table phone_books</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>Get Data by ID</td>
+    <td>GET</td>
+    <td>{baseURL}/phonebook/data/id</td>
+    <td>get data by id in table phone_books</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>Delete</td>
+    <td>POST</td>
+    <td>{baseURL}/phonebook/delete</td>
+    <td>delete some data in table phone_books</td>
+    <td>{"id":1}</td>
   </tr>
 </table>
 
