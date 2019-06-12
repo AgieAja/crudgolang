@@ -30,5 +30,12 @@
 
 
 <h3>Module</h3>
+<hr/>
+<tr>
+  <td>test</td>
+</tr>
+<tr>
+  <td>test 2</td>
+</tr>
 
 
