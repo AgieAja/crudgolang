@@ -33,19 +33,16 @@
 <hr/>
 <table style="width:100%;border:1px;">
   <tr>
-    <td>Jill</td>
-    <td>Smith</td>
-    <td>50</td>
+    <th>Module</th>
+    <th>URL</th>
+    <th>Description</th>
+    <th>Request Body</th>
   </tr>
   <tr>
-    <td>Eve</td>
-    <td>Jackson</td>
-    <td>94</td>
-  </tr>
-  <tr>
-    <td>John</td>
-    <td>Doe</td>
-    <td>80</td>
+    <td>Add</td>
+    <td>{baseURL/phonebook/add}</td>
+    <td>Add some data in table phone book</td>
+    <td>{"name":"Tiar","phone":"12346"}</td>
   </tr>
 </table>
 
